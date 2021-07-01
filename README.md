@@ -17,7 +17,7 @@
     - newPassword1: String
     - newPassword2: String
 
-4. **GET: /api/auth/profile**: Returns the profile of the user
+4. **GET: /api/auth/profile OR /api/auth/profile/username**: Returns the profile of the current user or the user with the given username
 
 5. **GET: /api/auth/verify/{token}**: Verifies the profile of the user with given token
 
