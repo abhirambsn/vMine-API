@@ -1,4 +1,20 @@
 # vMine API
+
+## Environment Variables Required
+
+1. MONGO_URI - MongoDB Connection String
+2. PORT - Port on which Server should run (default 3000 if not specified)
+3. JWT_SECRET - Json Web Token Secret Key
+4. JWT_EXPIRES_IN - No of seconds, the validity of one JWT
+5. UPLOAD_PATH - Path where uploaded files will be stored
+6. LOG_PATH - Path where application logs will be stored
+7. G_CLIENT_ID - Client ID of the Gmail ID which would be used
+8. G_CLIENT_SECRET - Secret ID of the Gmail ID
+9. G_REFRESH_TOKEN - Refresh Token of the Gmail ID taken from OAuth Playgroud
+10. G_EMAIL - Email ID to be used
+
+**For values of variables from 7 to 10 refer to this [Website](https://www.freecodecamp.org/news/use-nodemailer-to-send-emails-from-your-node-js-server/)**
+
 ## Routes
 ### Auth
 1. **POST: /api/auth/login**
@@ -45,4 +61,4 @@
 
 #### Made By: B.S.N. Abhiram
 #### Email: abhirambsn@gmail.com
-#### GitHub: @abhirambsn
+#### GitHub: [@abhirambsn](https://github.com/abhirambsn)
