@@ -145,7 +145,13 @@ const deleteAccount = async (req, res) => {
 
 
 const profile = async (req, res) => {
-    const user = await userModel.findOne({ _id: req.user }, { password: 0 }).exec()
+    const user = undefined
+    if (req.params.username) {
+        user = await userModel.findOne({ username: req.params.username }, { password: 0 }).exec()
+    } else {
+        user = await userModel.findOne({ _id: req.user }, { password: 0 }).exec()
+    }
+
     if (!user) return res.status(404).send({ error: "User not Found" })
 
     const profile = await profileModel.findOne({ user: user }).exec()

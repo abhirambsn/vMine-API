@@ -9,6 +9,7 @@ const authMiddleware = require('$middlewares/Auth')
 
 // GET Routes
 router.get('/profile', authMiddleware, authController.profile)
+router.get('/profile/:username', authMiddleware, authController.profile)
 router.get('/verify/:token', authController.verify)
 
 // POST Routes
