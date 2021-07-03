@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const { v4:genUUID } = require('uuid')
 
 const schema = mongoose.Schema({
-    _id: { type: String, default: genUUID() },
+    _id: { type: String, default: genUUID },
     caption: { type: String, required: true },
     pictures: { type: Array, default: [] },
     title: { type: String, required: false },

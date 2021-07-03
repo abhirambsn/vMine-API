@@ -17,6 +17,7 @@ router.get('/:post_id/:comment_id/reply', authMiddleware, postController.getRepl
 // POST Routes
 router.post('/:post_id/comment', authMiddleware, postController.commentPost)
 router.post('/:post_id/:comment_id/reply', authMiddleware, postController.replyPost)
+router.post('/follow', authMiddleware, postController.followUser)
 router.post('/', authMiddleware, postController.newPost)
 
 // DELETE Routes

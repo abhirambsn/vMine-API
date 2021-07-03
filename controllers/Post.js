@@ -6,6 +6,8 @@ const postModel = require('$models/Post')
 const likeModel = require('$models/Likes')
 const commentModel = require('$models/Comment')
 const userModel = require('$models/User')
+const profileModel = require('$models/Profile')
+const requestsModel = require('$models/Requests')
 
 // Logger
 const logger = require('$logging/Logger')
@@ -43,6 +45,32 @@ const newPost = async (req, res) => {
         console.error(err)
         return res.status(400).send({ error: "Bad Request!" })
     }
+}
+
+const followUser = async (req, res) => {
+    const user = await userModel.findOne({ _id: req.user }).exec()
+    if (!user) return res.status(404).send({ error: "User not found" })
+
+    const userId = req.body.user
+    const recepientUser = await userModel.findOne({ _id: userId }).exec()
+    if (!recepientUser) return res.status(404).send({ error: "The User does not exist" })
+
+    if (recepientUser.isPrivate) {
+        const reqExists = await requestsModel.findOne({ originUser: user, recepientUser: recepientUser }).exec()
+        if (reqExists) return res.status(400).send({ error: "Already Requested" })
+        const request = await requestsModel.create({ originUser: user, recepientUser: recepientUser })
+        request.save()
+        return res.status(200).send({ message: "Private accounts cannot be followed" })
+    } else {
+        const profile = await profileModel.findOne({ user: recepientUser }).exec()
+        if (!profile) return res.status(400).send({ error: "Profile Not Found" })
+
+        profile.followers.push(user)
+        await profile.save()
+
+        return res.status(201).send({ message: `You are now following ${recepientUser.username}` })
+    }
+
 }
 
 const getAllPosts = async (req, res) => {
@@ -216,5 +244,6 @@ module.exports = {
     replyPost: replyPost,
     getLikes: getLikes,
     getComments: getComments,
-    getReplies: getReplies
+    getReplies: getReplies,
+    followUser: followUser
 }
